@@ -46,3 +46,23 @@ for name, ddl in TABLES.iteritems():
 cnx.commit()
 cursor.close()
 cnx.close()
+
+def read_rankings(ranked_matrix):
+  cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
+  cursor = cnx.cursor()
+  cnx.database = DB_NAME
+  
+  add_ranking = ("INSERT INTO movie_tag_ranking "
+             "(movie, tag, ranking) "
+             "VALUES (%s, %s, %s); ")
+  
+  ranking_dict = ranked_matrix.to_dict(orient='dict')
+  for movie in ranking_dict:
+    for tag in ranking_dict[movie]:
+      ranking = ranking_dict[movie][tag]
+      data = (movie, tag, ranking)
+      cursor.execute(add_ranking, data)
+      
+  cnx.commit()
+  cursor.close()
+  cnx.close()
