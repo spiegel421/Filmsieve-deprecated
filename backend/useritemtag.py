@@ -4,7 +4,7 @@ from mysql.connector import errorcode
 DB_NAME = 'useritemtag'
 
 TABLES = {}
-TABLES['movie_tags'] = (
+TABLES['item_tags'] = (
   "CREATE TABLE item_tags( "
   "user varchar(20) NOT NULL, "
   "item varchar(100) NOT NULL, "
