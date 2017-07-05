@@ -1,12 +1,12 @@
 import mysql.connector
 from mysql.connector import errorcode
 
-DB_NAME = 'itemtag'
+DB_NAME = 'movietag'
 
 TABLES = {}
 TABLES['movie_tags'] = (
   "CREATE TABLE movie_tags( "
-  "item varchar(100) NOT NULL, "
+  "movie varchar(100) NOT NULL, "
   "tag varchar(20) NOT NULL ); ")
 
 TABLES['tags'] = (
@@ -65,15 +65,15 @@ def read_binary_table(interpretable_tags, binary_table):
     cursor.execute(add_tag, data)
   
   for i in binary_table:
-    item = i[0]
+    movie = i[0]
     tag = i[1]
-    add_item_tag = ("INSERT INTO movie_tags "
-             "(item, tag) "
+    add_movie_tag = ("INSERT INTO movie_tags "
+             "(movie, tag) "
              "VALUES (%s, %s); ")
   
-    data = (item, tag)
+    data = (movie, tag)
   
-    cursor.execute(add_item_tag, data)
+    cursor.execute(add_movie_tag, data)
   
   cnx.commit()
   cursor.close()
