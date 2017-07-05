@@ -1,13 +1,13 @@
 import mysql.connector
 from mysql.connector import errorcode
 
-DB_NAME = 'useritemtag'
+DB_NAME = 'usermovietag'
 
 TABLES = {}
 TABLES['movie_tags'] = (
   "CREATE TABLE movie_tags( "
   "user varchar(20) NOT NULL, "
-  "item varchar(100) NOT NULL, "
+  "movie varchar(100) NOT NULL, "
   "tag varchar(20) NOT NULL ); ")
 
 cnx = mysql.connector.connect(user='root', password='Reverie42')
@@ -47,20 +47,20 @@ cnx.commit()
 cursor.close()
 cnx.close()
 
-def update_tags(tablename, user, item, tag):
+def update_tags(user, movie, tag):
   cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
   cursor = cnx.cursor()
   cnx.database = DB_NAME
   
   check_exists = ("SELECT EXISTS(SELECT 1 FROM "
-                  "%s WHERE user = %s "
-                  "AND item = %s AND tag = %s); ")
+                  "movie_tags WHERE user = %s "
+                  "AND movie = %s AND tag = %s); ")
   
-  add_tag = ("INSERT INTO %s "
-             "(user, item, tag) "
+  add_tag = ("INSERT INTO movie_tags "
+             "(user, movie, tag) "
              "VALUES (%s, %s, %s); ")
   
-  data = (tablename, user, item, tag)
+  data = (user, movie, tag)
   
   cursor.execute(check_exists, data)
   for i in cursor:
@@ -72,14 +72,14 @@ def update_tags(tablename, user, item, tag):
   cursor.close()
   cnx.close()
   
-def read_into_dict(tablename):
+def read_into_dict():
   cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
   cursor = cnx.cursor()
   cnx.database = DB_NAME
   
   tag_dict = {}
   
-  cursor.execute("SELECT * FROM %s; " % (tablename))
+  cursor.execute("SELECT * FROM movie_tags; ")
   for i in cursor:
     if i[1] in tag_dict:
       if i[2] in tag_dict[i[1]]:
