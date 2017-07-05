@@ -4,8 +4,8 @@ from mysql.connector import errorcode
 DB_NAME = 'itemtag'
 
 TABLES = {}
-TABLES['item_tags'] = (
-  "CREATE TABLE item_tags( "
+TABLES['movie_tags'] = (
+  "CREATE TABLE movie_tags( "
   "item varchar(100) NOT NULL, "
   "tag varchar(20) NOT NULL ); ")
 
@@ -67,7 +67,7 @@ def read_binary_table(interpretable_tags, binary_table):
   for i in binary_table:
     item = i[0]
     tag = i[1]
-    add_item_tag = ("INSERT INTO item_tags "
+    add_item_tag = ("INSERT INTO movie_tags "
              "(item, tag) "
              "VALUES (%s, %s); ")
   
