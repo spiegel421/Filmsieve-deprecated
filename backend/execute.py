@@ -5,6 +5,7 @@ from embed import perform_all
 def read_tags(filename):
   reader = open(filename, mode='r')
   line = reader.readline()
+  line = reader.readline()
   while line != '':
     datum = line.split(',')
     update_tags(datum[0], datum[1], datum[2])
