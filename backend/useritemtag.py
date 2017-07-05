@@ -5,7 +5,7 @@ DB_NAME = 'useritemtag'
 
 TABLES = {}
 TABLES['movie_tags'] = (
-  "CREATE TABLE album_tags( "
+  "CREATE TABLE item_tags( "
   "user varchar(20) NOT NULL, "
   "item varchar(100) NOT NULL, "
   "tag varchar(20) NOT NULL ); ")
