@@ -13,6 +13,6 @@ def read_tags(filename):
   reader.close()
 
 if __name__ == "__main__":
-  read_tags('tags.csv')
+  read_tags('filmsieve/backend/tags.csv')
   binary_table = embed.perform_all(read_into_dict())
   read_binary_table(binary_table[0], binary_table[1])
