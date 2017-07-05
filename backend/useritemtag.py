@@ -1,18 +1,15 @@
-# Stores a table for movie tags.
 import mysql.connector
 from mysql.connector import errorcode
 
 DB_NAME = 'useritemtag'
 
 TABLES = {}
-# Every time a user tags a movie, the user, movie, and tag are stored.
 TABLES['movie_tags'] = (
   "CREATE TABLE album_tags( "
   "user varchar(20) NOT NULL, "
   "item varchar(100) NOT NULL, "
   "tag varchar(20) NOT NULL ); ")
 
-# Connects to mysql, defines a method for creating the database, and uses that method.
 cnx = mysql.connector.connect(user='root', password='Reverie42')
 cursor = cnx.cursor()
 
@@ -50,7 +47,6 @@ cnx.commit()
 cursor.close()
 cnx.close()
 
-# Allows users to update either tag table.
 def update_tags(tablename, user, item, tag):
   cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
   cursor = cnx.cursor()
@@ -76,8 +72,7 @@ def update_tags(tablename, user, item, tag):
   cursor.close()
   cnx.close()
   
-# Reads either tag table into a dictionary.
-def read_tags(tablename):
+def read_into_dict(tablename):
   cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
   cursor = cnx.cursor()
   cnx.database = DB_NAME
