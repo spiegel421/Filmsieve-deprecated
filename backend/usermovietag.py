@@ -61,6 +61,7 @@ def update_tags(user, movie, tag):
              "VALUES (%s, %s, %s); ")
   
   data = (user, movie, tag)
+  print tag
   
   cursor.execute(check_exists, data)
   for i in cursor:
