@@ -1,5 +1,6 @@
 from usermovietag import *
 from movietag import *
+import os
 from embed import perform_all
 
 def read_tags(filename):
@@ -13,6 +14,6 @@ def read_tags(filename):
   reader.close()
 
 if __name__ == "__main__":
-  read_tags('~/filmsieve/backend/tags.csv')
+  read_tags(os.expanduser('~/filmsieve/backend/ml-latest/tags.csv'))
   binary_table = embed.perform_all(read_into_dict())
   read_binary_table(binary_table[0], binary_table[1])
