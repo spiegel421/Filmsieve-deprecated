@@ -1,4 +1,3 @@
-# Establishes item rankings, with relevance to tags.
 import numpy as np
 import pandas as pd
 import copy
@@ -6,11 +5,9 @@ from keras.layers import Input, Dense
 from keras.models import Model
 from sklearn import svm
 
-# Converts dictionaries to labeled matrices, using pandas's DataFrame class.
 def convert_to_matrix(tag_dict):
   return pd.DataFrame(tag_dict).T.fillna(0)
 
-# Generates matrix of PPMI values from matrix of counts.
 def convert_to_ppmi(count_matrix):
   ppmi_matrix = copy.copy(count_matrix)
   
@@ -33,7 +30,6 @@ def convert_to_ppmi(count_matrix):
           
   return ppmi_matrix
 
-# Auto-encodes PPMI matrix into 20 dimensions, using five-fold cross validation.
 def autoencode(ppmi_matrix):
   original_dim = len(ppmi_matrix.values[0])
   encoding_dim = 20
@@ -56,7 +52,6 @@ def autoencode(ppmi_matrix):
   encoded_space = pd.DataFrame(encoder.predict(ppmi_matrix.values), index=ppmi_matrix.index)
   return encoded_space
 
-# Determines the distance of each item from each tag's hyperplane.
 def find_distance_matrix(count_matrix, encoded_space):
   distance_matrix = copy.copy(count_matrix).T
   
@@ -69,7 +64,6 @@ def find_distance_matrix(count_matrix, encoded_space):
     
   return distance_matrix
 
-# Ranks items by distance from each tag's hyperplane.
 def rank_distance_matrix(distance_matrix):
   sorted_by_distance = {}
   for tag in distance_matrix.index:
@@ -83,7 +77,6 @@ def rank_distance_matrix(distance_matrix):
     
   return ranked_matrix
 
-# Finds normalized discounted cumulative gain (NDCG) for each tag.
 def find_ndcg_values(ppmi_matrix, ranked_matrix):
   ndcg_values = {}
   rankings_dict = ranked_matrix.to_dict(orient='index')
@@ -102,7 +95,6 @@ def find_ndcg_values(ppmi_matrix, ranked_matrix):
     
   return ndcg_values
 
-# Finds binary table based on ranked matrix and tag NDCG values.
 def find_binary_table(ranked_matrix, percentile, ndcg_values, cutoff_ndcg):
   interpretable_tags = []
   for tag in ndcg_values:
