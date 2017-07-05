@@ -113,3 +113,12 @@ def find_binary_table(ranked_matrix, percentile, ndcg_values, cutoff_ndcg):
         binary_table.append(i)
         
   return [interpretable_tags, binary_table]
+
+def perform_all(tag_dict):
+  count_matrix = convert_to_matrix(tag_dict)
+  ppmi_matrix = convert_to_ppmi(count_matrix)
+  encoded_space = autoencode(ppmi_matrix)
+  distance_matrix = find_distance_matrix(count_matrix, encoded_space)
+  ranked_matrix = rank_distance_matrix(distance_matrix)
+  ndcg_values = find_ndcg_values(ppmi_matrix, ranked_matrix)
+  binary_table = find_binary_table(ranked_matrix, 0.90, ndcg_values, 0.30)
