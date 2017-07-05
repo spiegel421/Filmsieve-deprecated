@@ -6,9 +6,9 @@ DB_NAME = 'usermovietag'
 TABLES = {}
 TABLES['movie_tags'] = (
   "CREATE TABLE movie_tags( "
-  "user varchar(20) NOT NULL, "
-  "movie varchar(100) NOT NULL, "
-  "tag varchar(20) NOT NULL ); ")
+  "user int(10) NOT NULL, "
+  "movie int(10) NOT NULL, "
+  "tag varchar(100) NOT NULL ); ")
 
 cnx = mysql.connector.connect(user='root', password='Reverie42')
 cursor = cnx.cursor()
