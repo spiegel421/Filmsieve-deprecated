@@ -122,3 +122,4 @@ def perform_all(tag_dict):
   ranked_matrix = rank_distance_matrix(distance_matrix)
   ndcg_values = find_ndcg_values(ppmi_matrix, ranked_matrix)
   binary_table = find_binary_table(ranked_matrix, 0.90, ndcg_values, 0.30)
+  return binary_table
