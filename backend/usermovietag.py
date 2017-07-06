@@ -62,7 +62,7 @@ def update_tags(user, movie, tag):
   
   data = (user, movie, tag)
   if len(tag) > 100:
-    print tag
+    return
   
   cursor.execute(check_exists, data)
   for i in cursor:
