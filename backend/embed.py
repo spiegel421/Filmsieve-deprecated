@@ -12,6 +12,7 @@ def convert_to_matrix(tag_dict):
 def convert_to_ppmi(count_matrix):
   ppmi_matrix = copy.copy(count_matrix)
   
+  print 'loop'
   for movie in count_matrix.index:
     for tag in count_matrix.columns:
       entry = float(count_matrix.loc[movie][tag])
