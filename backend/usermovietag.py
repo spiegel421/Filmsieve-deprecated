@@ -88,5 +88,4 @@ def read_into_dict():
   cursor.close()
   cnx.close()
   
-  print 'DONE'
   return tag_dict
