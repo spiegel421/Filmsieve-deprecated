@@ -6,6 +6,7 @@ from keras.models import Model
 from sklearn import svm
 
 def convert_to_matrix(tag_dict):
+  print 'method one'
   return pd.DataFrame(tag_dict).T.fillna(0)
 
 def convert_to_ppmi(count_matrix):
@@ -28,6 +29,7 @@ def convert_to_ppmi(count_matrix):
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
           ppmi_matrix.values[row][col] = ppmi_value
           
+  print 'method 2'
   return ppmi_matrix
 
 def autoencode(ppmi_matrix):
