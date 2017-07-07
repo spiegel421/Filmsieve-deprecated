@@ -52,10 +52,6 @@ def update_tags(user, movie, tag):
   cursor = cnx.cursor()
   cnx.database = DB_NAME
   
-  check_exists = ("SELECT EXISTS(SELECT 1 FROM "
-                  "movie_tags WHERE user = %s "
-                  "AND movie = %s AND tag = %s); ")
-  
   add_tag = ("INSERT INTO movie_tags "
              "(user, movie, tag) "
              "VALUES (%s, %s, %s); ")
@@ -64,11 +60,7 @@ def update_tags(user, movie, tag):
   if len(tag) > 100:
     return
   
-  cursor.execute(check_exists, data)
-  for i in cursor:
-    exists = i[0]
-  if exists == 0:
-    cursor.execute(add_tag, data)
+  cursor.execute(add_tag, data)
   
   cnx.commit()
   cursor.close()
