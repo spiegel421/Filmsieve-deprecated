@@ -17,12 +17,10 @@ def convert_to_ppmi(count_matrix):
       entry = float(count_matrix.values[row][col])
       if entry == 0:
         ppmi_matrix.values[row][col] = 0.0
-        continue
       else:
         prob_con = entry / count_matrix.values.sum()
         if prob_con == 1.0:
           ppmi_matrix.values[row][col] = 1.0
-          continue
         else:
           prob_row = entry / count_matrix.values.sum(axis=1)[row]
           prob_col = entry / count_matrix.values.sum(axis=0)[col]
