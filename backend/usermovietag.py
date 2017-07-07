@@ -10,7 +10,7 @@ TABLES['movie_tags'] = (
   "movie int(10) NOT NULL, "
   "tag varchar(100) NOT NULL ); ")
 
-cnx = mysql.connector.connect(user='root', password='Reverie42')
+cnx = mysql.connector.connect(user='root', password='Reverie42!')
 cursor = cnx.cursor()
 
 def create_database(cursor):
@@ -48,7 +48,7 @@ cursor.close()
 cnx.close()
 
 def update_tags(user, movie, tag):
-  cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
+  cnx = mysql.connector.connect(user='root', password='Reverie42!', buffered=True)
   cursor = cnx.cursor()
   cnx.database = DB_NAME
   
@@ -67,7 +67,7 @@ def update_tags(user, movie, tag):
   cnx.close()
   
 def read_into_dict():
-  cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
+  cnx = mysql.connector.connect(user='root', password='Reverie42!', buffered=True)
   cursor = cnx.cursor()
   cnx.database = DB_NAME
   
