@@ -9,7 +9,6 @@ def convert_to_matrix(tag_dict):
   return pd.DataFrame(tag_dict).T.fillna(0)
 
 def convert_to_ppmi(count_matrix):
-  ppmi_matrix = pd.DataFrame(index=count_matrix.index, columns=count_matrix.columns)
   sum_tot = count_matrix.values.sum()
   print '1'
   sum_row = count_matrix.values.sum(axis=1)
@@ -25,18 +24,18 @@ def convert_to_ppmi(count_matrix):
     for col in len(count_matrix.columns):
       entry = float(count_matrix.values[row][col])
       if entry == 0:
-        ppmi_matrix.values[row][col] = 0.0
+        count_matrix.values[row][col] = 0.0
       else:
         prob_con = entry / sum_tot
         if prob_con == 1.0:
-          ppmi_matrix.values[row][col] = 1.0
+          count_matrix.values[row][col] = 1.0
         else:
           prob_row = entry / sum_row[row]
           prob_col = entry / sum_col[tag]
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
-          ppmi_matrix.values[row][col] = ppmi_value
+          count_matrix.values[row][col] = ppmi_value
           
-  return ppmi_matrix
+  return count_matrix
 
 def autoencode(ppmi_matrix):
   original_dim = len(ppmi_matrix.values[0])
