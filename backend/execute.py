@@ -7,10 +7,14 @@ def read_tags(filename):
   reader = open(filename, mode='r')
   line = reader.readline()
   line = reader.readline()
+  count = 0
   while line != '':
     datum = line.split(',')
     update_tags(datum[0], datum[1], datum[2])
     line = reader.readline()
+    count += 1
+    if count % 1000 == 0:
+      print count
   reader.close()
 
 if __name__ == "__main__":
