@@ -10,27 +10,31 @@ def convert_to_matrix(tag_dict):
 
 def convert_to_ppmi(count_matrix):
   ppmi_matrix = pd.DataFrame(index=count_matrix.index, columns=count_matrix.columns)
-  sum_row = count_matrix.sum(axis=1)
-  sum_col = count_matrix.sum(axis=0)
-  count = 0
+  sum_tot = count_matrix.values.sum()
+  print '1'
+  sum_row = count_matrix.values.sum(axis=1)
+  print '2'
+  sum_col = count_matrix.values.sum(axis=0)
+  print '3'
   
-  for movie in count_matrix.index:
+  count = 0
+  for row in len(count_matrix.index):
     count += 1
     if count % 1000 == 0:
       print count
-    for tag in count_matrix.columns:
-      entry = float(count_matrix.loc[movie][tag])
+    for col in len(count_matrix.columns):
+      entry = float(count_matrix.values[row][col])
       if entry == 0:
-        ppmi_matrix.loc[movie][tag] = 0.0
+        ppmi_matrix.values[row][col] = 0.0
       else:
-        prob_con = entry / count_matrix.values.sum()
+        prob_con = entry / sum_tot
         if prob_con == 1.0:
-          ppmi_matrix.loc[movie][tag] = 1.0
+          ppmi_matrix.values[row][col] = 1.0
         else:
-          prob_row = entry / sum_row.loc[movie]
-          prob_col = entry / sum_col.loc[tag]
+          prob_row = entry / sum_row[row]
+          prob_col = entry / sum_col[tag]
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
-          ppmi_matrix.loc[movie][tag] = ppmi_value
+          ppmi_matrix.values[row][col] = ppmi_value
           
   return ppmi_matrix
 
