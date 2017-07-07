@@ -6,13 +6,15 @@ from keras.models import Model
 from sklearn import svm
 
 def convert_to_matrix(tag_dict):
-  print 'method one'
   return pd.DataFrame(tag_dict).T.fillna(0)
 
 def convert_to_ppmi(count_matrix):
   ppmi_matrix = copy.copy(count_matrix)
+  print 'done 1'
   sum_row = count_matrix.sum(axis=1)
+  print 'done 2'
   sum_col = count_matrix.sum(axis=0)
+  print 'done 3'
   count = 0
   
   for movie in count_matrix.index:
@@ -33,7 +35,6 @@ def convert_to_ppmi(count_matrix):
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
           ppmi_matrix.loc[movie][tag] = ppmi_value
           
-  print 'method two'
   return ppmi_matrix
 
 def autoencode(ppmi_matrix):
