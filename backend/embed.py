@@ -7,6 +7,7 @@ from sklearn import svm
 
 def convert_to_matrix(tag_dict):
   return pd.DataFrame(tag_dict).T.fillna(0)
+  print 'done'
 
 def convert_to_ppmi(count_matrix):
   sum_tot = count_matrix.values.sum()
