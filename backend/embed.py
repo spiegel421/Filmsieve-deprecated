@@ -11,8 +11,9 @@ def convert_to_matrix(tag_dict):
 
 def convert_to_ppmi(count_matrix):
   ppmi_matrix = copy.copy(count_matrix)
+  sum_row = count_matrix.sum(axis=1)
+  sum_col = count_matrix.sum(axis=0)
   
-  print 'loop'
   for movie in count_matrix.index:
     for tag in count_matrix.columns:
       entry = float(count_matrix.loc[movie][tag])
@@ -23,8 +24,8 @@ def convert_to_ppmi(count_matrix):
         if prob_con == 1.0:
           ppmi_matrix.loc[movie][tag] = 1.0
         else:
-          prob_row = entry / count_matrix.sum(axis=1).loc[movie]
-          prob_col = entry / count_matrix.sum(axis=0).loc[tag]
+          prob_row = entry / sum_row.loc[movie]
+          prob_col = entry / sum_col.loc[tag]
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
           ppmi_matrix.loc[movie][tag] = ppmi_value
           
