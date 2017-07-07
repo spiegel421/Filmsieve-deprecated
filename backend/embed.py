@@ -12,22 +12,22 @@ def convert_to_matrix(tag_dict):
 def convert_to_ppmi(count_matrix):
   ppmi_matrix = copy.copy(count_matrix)
   
-  for row in range(len(count_matrix.values)):
-    for col in range(len(count_matrix.values[0])):
-      entry = float(count_matrix.values[row][col])
+  for movie in count_matrix.index:
+    for tag in count_matrix.columns:
+      entry = float(count_matrix.loc[movie][tag])
       if entry == 0:
-        ppmi_matrix.values[row][col] = 0.0
+        ppmi_matrix.loc[movie][tag] = 0.0
       else:
         prob_con = entry / count_matrix.values.sum()
         if prob_con == 1.0:
-          ppmi_matrix.values[row][col] = 1.0
+          ppmi_matrix.loc[movie][tag] = 1.0
         else:
-          prob_row = entry / count_matrix.values.sum(axis=1)[row]
-          prob_col = entry / count_matrix.values.sum(axis=0)[col]
+          prob_row = entry / count_matrix.sum(axis=1).loc[movie]
+          prob_col = entry / count_matrix.sum(axis=0).loc[tag]
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
-          ppmi_matrix.values[row][col] = ppmi_value
+          ppmi_matrix.loc[movie][tag] = ppmi_value
           
-  print 'method 2'
+  print 'method two'
   return ppmi_matrix
 
 def autoencode(ppmi_matrix):
