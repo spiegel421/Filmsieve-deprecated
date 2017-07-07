@@ -9,12 +9,9 @@ def convert_to_matrix(tag_dict):
   return pd.DataFrame(tag_dict).T.fillna(0)
 
 def convert_to_ppmi(count_matrix):
-  ppmi_matrix = copy.copy(count_matrix)
-  print 'done 1'
+  ppmi_matrix = pd.DataFrame(index=count_matrix.index, columns=count_matrix.columns)
   sum_row = count_matrix.sum(axis=1)
-  print 'done 2'
   sum_col = count_matrix.sum(axis=0)
-  print 'done 3'
   count = 0
   
   for movie in count_matrix.index:
