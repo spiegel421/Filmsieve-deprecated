@@ -13,8 +13,12 @@ def convert_to_ppmi(count_matrix):
   ppmi_matrix = copy.copy(count_matrix)
   sum_row = count_matrix.sum(axis=1)
   sum_col = count_matrix.sum(axis=0)
+  count = 0
   
   for movie in count_matrix.index:
+    count += 1
+    if count % 1000 == 0:
+      print count
     for tag in count_matrix.columns:
       entry = float(count_matrix.loc[movie][tag])
       if entry == 0:
