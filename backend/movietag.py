@@ -13,7 +13,7 @@ TABLES['tags'] = (
   "CREATE TABLE tags( "
   "tag varchar(100) NOT NULL ); ")
 
-cnx = mysql.connector.connect(user='root', password='Reverie42!')
+cnx = mysql.connector.connect(user='root', password='Reverie42')
 cursor = cnx.cursor()
 
 def create_database(cursor):
@@ -51,7 +51,7 @@ cursor.close()
 cnx.close()
 
 def read_binary_table(interpretable_tags, binary_table):
-  cnx = mysql.connector.connect(user='root', password='Reverie42!', buffered=True)
+  cnx = mysql.connector.connect(user='root', password='Reverie42', buffered=True)
   cursor = cnx.cursor()
   cnx.database = DB_NAME
   
