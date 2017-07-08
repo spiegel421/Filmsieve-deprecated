@@ -28,7 +28,7 @@ def convert_to_ppmi(count_matrix):
           count_matrix.values[row][col] = 1.0
         else:
           prob_row = entry / sum_row[row]
-          prob_col = entry / sum_col[tag]
+          prob_col = entry / sum_col[col]
           ppmi_value = 2 ** (np.log(prob_con / (prob_row * prob_col)) + np.log(prob_con))
           count_matrix.values[row][col] = ppmi_value
           
