@@ -18,6 +18,6 @@ def read_tags(filename):
   reader.close()
 
 if __name__ == "__main__":
-  #read_tags(os.path.expanduser('~/filmsieve/backend/ml-latest-small/tags.csv'))
+  read_tags(os.path.expanduser('~/filmsieve/backend/ml-latest-small/tags.csv'))
   binary_table = perform_all(read_into_dict())
   read_binary_table(binary_table[0], binary_table[1])
