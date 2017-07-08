@@ -7,15 +7,11 @@ from sklearn import svm
 
 def convert_to_matrix(tag_dict):
   return pd.DataFrame.from_dict(tag_dict, orient='index').fillna(0)
-  print 'done'
 
 def convert_to_ppmi(count_matrix):
   sum_tot = count_matrix.values.sum()
-  print '1'
   sum_row = count_matrix.values.sum(axis=1)
-  print '2'
   sum_col = count_matrix.values.sum(axis=0)
-  print '3'
   
   count = 0
   for row in len(count_matrix.index):
