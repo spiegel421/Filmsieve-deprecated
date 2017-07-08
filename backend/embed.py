@@ -14,11 +14,11 @@ def convert_to_ppmi(count_matrix):
   sum_col = count_matrix.values.sum(axis=0)
   
   count = 0
-  for row in len(count_matrix.index):
+  for row in range(len(count_matrix.index)):
     count += 1
     if count % 1000 == 0:
       print count
-    for col in len(count_matrix.columns):
+    for col in range(len(count_matrix.columns)):
       entry = float(count_matrix.values[row][col])
       if entry == 0:
         count_matrix.values[row][col] = 0.0
